@@ -41,15 +41,14 @@ dependencies:
   firebase_database: ^10.0.9 # 파이어베이스 데이터베이스 패키지
   # firebase_messaging: ^14.2.1 # 파이어베이스 메시징 패키지
   # google_mobile_ads: ^2.3.0 # 파이어베이스 애드몹 패키지
-  firebase_storage: ^11.0.10 # 파이어베이스 저장 패키지
-  cloud_firestore: ^4.3.1
-  firebase_auth: ^4.2.4 # 파이어베이스 연결
+  firebase_storage: ^11.0.10 # 파이어베이스 Storage 패키지
+  cloud_firestore: ^4.3.1 # 파이어베이스 Colud Firestroe 패키지
+  firebase_auth: ^4.2.4 # 파이어베이스 Authentication 연결 패키지
   google_sign_in: ^5.4.2 # 구글 로그인
-  http: ^0.13.5
-
-  file_picker: ^5.2.5
   image_picker: ^0.8.6
-  # flutterfire_ui: ^0.4.3+20
+  http: ^0.13.5
+  path: ^1.8.3
+
 
 dev_dependencies:
   flutter_test:
@@ -68,7 +67,7 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-    - asset/image/
+    - assets/images/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

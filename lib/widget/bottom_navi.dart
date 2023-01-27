@@ -47,7 +47,7 @@ class _BottomNaviState extends State<BottomNavi> {
         items: [
           BottomNavigationBarItem(
             icon: Image.asset(
-              'asset/image/home_icon.png',
+              'assets/images/home_icon.png',
               color: Colors.white,
               width: 20,
               height: 20,
@@ -57,7 +57,7 @@ class _BottomNaviState extends State<BottomNavi> {
           ),
           BottomNavigationBarItem(
               icon: Image.asset(
-                'asset/image/search_icon.png',
+                'assets/images/search_icon.png',
                 color: Colors.white,
                 width: 25,
                 height: 25,
@@ -66,7 +66,7 @@ class _BottomNaviState extends State<BottomNavi> {
               label: '검색'),
           BottomNavigationBarItem(
               icon: Image.asset(
-                'asset/image/gallery_icon.png',
+                'assets/images/gallery_icon.png',
                 color: Colors.white,
                 width: 20,
                 height: 20,
@@ -75,7 +75,7 @@ class _BottomNaviState extends State<BottomNavi> {
               label: '게시판'),
           BottomNavigationBarItem(
               icon: Image.asset(
-                'asset/image/chat_icon.png',
+                'assets/images/chat_icon.png',
                 color: Colors.white,
                 width: 20,
                 height: 20,
@@ -84,7 +84,7 @@ class _BottomNaviState extends State<BottomNavi> {
               label: '채팅'),
           BottomNavigationBarItem(
               icon: Image.asset(
-                'asset/image/myPage_icon.png',
+                'assets/images/myPage_icon.png',
                 color: Colors.white,
                 width: 20,
                 height: 20,

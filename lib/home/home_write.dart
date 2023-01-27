@@ -1,5 +1,9 @@
+import 'dart:io';
+import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class Write extends StatefulWidget {
   const Write({Key? key}) : super(key: key);
@@ -10,10 +14,23 @@ class Write extends StatefulWidget {
 
 // 사진 선택 및 가져오기
 class _WriteState extends State<Write> {
-  Image? image;
+  File? _image;
 
-  // final FirebaseStorage _firebaseStorage =
-  //     FirebaseStorage.instance; // 파이어베이스 스토리지에 사진 업로드
+  Future getImage() async {
+    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = File(image!.path);
+    });
+  }
+
+  Future uploadPic(BuildContext context) async {
+    String fileName = basename(_image!.path);
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    Reference ref = firebaseStorage.ref().child(fileName);
+    UploadTask uploadTask = ref.putFile(_image!);
+    TaskSnapshot taskSnapshot = await uploadTask;
+    setState(() {});
+  }
 
   FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
@@ -27,7 +44,6 @@ class _WriteState extends State<Write> {
   String area = "";
   String introduce = "";
 
-  // 모임 이름 값 전달
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,6 +90,50 @@ class _WriteState extends State<Write> {
         children: [
           Column(
             children: <Widget>[
+              Builder(
+                builder: (context) => Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: CircleAvatar(
+                              radius: 100,
+                              backgroundColor: Colors.black12,
+                              child: ClipOval(
+                                child: SizedBox(
+                                  width: 180,
+                                  height: 180,
+                                  child: (_image != null)
+                                      ? Image.file(
+                                          _image!,
+                                          fit: BoxFit.fill,
+                                        )
+                                      : Image.network(
+                                          "https://picsum.photos/250?image=9",
+                                          fit: BoxFit.fill,
+                                        ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 60.0),
+                            child: IconButton(
+                                onPressed: () {
+                                  getImage();
+                                },
+                                icon: const Icon(Icons.camera)),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.center,
               //   children: [
