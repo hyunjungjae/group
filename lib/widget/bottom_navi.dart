@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:group/chat/chat_main.dart';
-import 'package:group/gallery/gallery_main.dart';
-import 'package:group/home/home_main_page.dart';
-import 'package:group/my/my_main.dart';
-import 'package:group/search/search_main.dart';
+import 'package:group/screen/chat_main.dart';
+import 'package:group/screen/gallery_main.dart';
+import 'package:group/screen/home_main_page.dart';
+import 'package:group/screen/my_main.dart';
+import 'package:group/screen/search_main.dart';
 
 class BottomNavi extends StatefulWidget {
   const BottomNavi({Key? key}) : super(key: key);

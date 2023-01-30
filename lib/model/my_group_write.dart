@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:group/home/home_detail_page.dart';
+import 'package:group/screen/home_detail_page.dart';
 
 class MyGroupWrite extends StatefulWidget {
   const MyGroupWrite({super.key});

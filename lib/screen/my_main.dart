@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:group/my/my_group_write.dart';
+import 'package:get/get.dart';
+import 'package:group/model/my_group_write.dart';
 
 class My extends StatelessWidget {
   const My({Key? key}) : super(key: key);
@@ -63,12 +64,7 @@ class My extends StatelessWidget {
                       title: const Text('내가 만든 모임'),
                       subtitle: const Text('아직 미정'),
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MyGroupWrite(),
-                          ),
-                        );
+                        Get.to(() => const MyGroupWrite());
                       },
                     ),
                   ),

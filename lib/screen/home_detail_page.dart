@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DetailWritePage extends StatefulWidget {
   const DetailWritePage({super.key});
@@ -9,8 +10,7 @@ class DetailWritePage extends StatefulWidget {
 }
 
 class _DetailWritePageState extends State<DetailWritePage> {
-//
-
+  //
   CollectionReference product =
       FirebaseFirestore.instance.collection('group_write');
 
@@ -28,7 +28,7 @@ class _DetailWritePageState extends State<DetailWritePage> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Get.back();
           },
           icon: const Icon(
             Icons.arrow_back_ios,

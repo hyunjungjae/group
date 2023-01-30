@@ -47,7 +47,8 @@ dependencies:
   google_sign_in: ^5.4.2 # 구글 로그인
   image_picker: ^0.8.6
   http: ^0.13.5
-  path: ^1.8.3
+  path: ^1.8.2
+  get: ^4.6.5
 
 
 dev_dependencies:

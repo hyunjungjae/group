@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -23,13 +24,15 @@ class _WriteState extends State<Write> {
     });
   }
 
-  Future uploadPic(BuildContext context) async {
+  Future uploadImage(BuildContext context) async {
     String fileName = basename(_image!.path);
     FirebaseStorage firebaseStorage = FirebaseStorage.instance;
     Reference ref = firebaseStorage.ref().child(fileName);
     UploadTask uploadTask = ref.putFile(_image!);
     TaskSnapshot taskSnapshot = await uploadTask;
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   FirebaseFirestore fireStore = FirebaseFirestore.instance;
@@ -58,7 +61,7 @@ class _WriteState extends State<Write> {
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Get.back();
           },
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -70,13 +73,14 @@ class _WriteState extends State<Write> {
         actions: [
           IconButton(
               onPressed: () {
+                uploadImage(context);
                 fireStore.collection('group_write').doc().set({
                   "name": name,
                   "category": category,
                   "area": area,
                   "introduce": introduce,
                 });
-                Navigator.pop(context);
+                Get.back();
               },
               icon: const Icon(
                 Icons.check,
@@ -91,83 +95,36 @@ class _WriteState extends State<Write> {
           Column(
             children: <Widget>[
               Builder(
-                builder: (context) => Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Align(
-                            alignment: Alignment.center,
-                            child: CircleAvatar(
-                              radius: 100,
-                              backgroundColor: Colors.black12,
-                              child: ClipOval(
-                                child: SizedBox(
-                                  width: 180,
-                                  height: 180,
-                                  child: (_image != null)
-                                      ? Image.file(
-                                          _image!,
-                                          fit: BoxFit.fill,
-                                        )
-                                      : Image.network(
-                                          "https://picsum.photos/250?image=9",
-                                          fit: BoxFit.fill,
-                                        ),
-                                ),
-                              ),
-                            ),
+                builder: (context) => Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(25),
+                            child: SizedBox.fromSize(
+                                size: const Size.fromRadius(100),
+                                child: (_image != null)
+                                    ? Image.file(_image!, fit: BoxFit.fill)
+                                    : null),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 60.0),
-                            child: IconButton(
-                                onPressed: () {
-                                  getImage();
-                                },
-                                icon: const Icon(Icons.camera)),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 100.0),
+                          child: IconButton(
+                              onPressed: () {
+                                getImage();
+                              },
+                              icon: const Icon(Icons.camera_alt)),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     ElevatedButton(
-              //       style: ElevatedButton.styleFrom(
-              //         shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(10),
-              //         ),
-              //         fixedSize: const Size(150, 150),
-              //       ),
-              //       onPressed: () {
-              //         myAlert();
-              //       },
-              //       child: const Icon(Icons.camera_alt),
-              //     ),
-              //   ],
-              // ),
-              // userImage != null
-              //     ? Padding(
-              //         padding: const EdgeInsets.symmetric(horizontal: 20),
-              //         child: ClipRRect(
-              //           borderRadius: BorderRadius.circular(8),
-              //           child: Image.file(
-              //             File(userImage!.path),
-              //             fit: BoxFit.cover,
-              //             width: 150,
-              //             height: 150,
-              //           ),
-              //         ),
-              //       )
-              //     : const Text(
-              //         '',
-              //         style: TextStyle(fontSize: 20),
-              //       ),
 
               const SizedBox(
                 height: 15,

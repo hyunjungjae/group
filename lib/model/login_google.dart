@@ -19,19 +19,23 @@ class LoginGoogle extends StatelessWidget {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
+  PreferredSizeWidget _appbarWidget() {
+    return AppBar(
+      backgroundColor: const Color(0xFF994B00),
+      title: const Text(
+        'SNS Login',
+        style: TextStyle(
+            color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+      ),
+      centerTitle: true,
+      elevation: 0,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF994B00),
-        title: const Text(
-          'SNS Login',
-          style: TextStyle(
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
-        ),
-        centerTitle: true,
-        elevation: 0,
-      ),
+      appBar: _appbarWidget(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

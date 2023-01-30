@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:group/home/home_category.dart';
-import 'package:group/home/home_detail_page.dart';
-import 'package:group/home/home_write.dart';
+import 'package:get/get.dart';
+import 'package:group/screen/home_category.dart';
+import 'package:group/screen/home_detail_page.dart';
+import 'package:group/screen/home_write.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -31,10 +31,8 @@ class _HomePageState extends State<HomePage> {
       // 카테고리 선택
       leading: IconButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const HomeCategory()),
-          );
+          Get.to(() => const HomeCategory(),
+              transition: Transition.leftToRight);
         },
         icon: const Icon(Icons.menu),
       ),
@@ -45,11 +43,7 @@ class _HomePageState extends State<HomePage> {
           color: Colors.white,
           iconSize: 20,
           onPressed: () {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(
-                  builder: (context) => const Write(), fullscreenDialog: true),
-            );
+            Get.to(() => const Write(), transition: Transition.downToUp);
           },
           icon: const Icon(Icons.edit),
         ),
@@ -88,19 +82,15 @@ class _HomePageState extends State<HomePage> {
                             left: 14, right: 14, bottom: 7, top: 7),
                         child: ListTile(
                           leading: const Icon(
-                            Icons.logo_dev,
+                            //
+                            (Icons.dangerous),
                             size: 60,
                           ),
                           title: Text(documentSnapshot['name']),
                           subtitle: Text(documentSnapshot['category']),
                           // isThreeLine: true,
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const DetailWritePage(),
-                              ),
-                            );
+                            Get.to(() => const DetailWritePage());
                           },
                         ),
                       ),
