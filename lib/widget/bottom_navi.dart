@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:group/screen/chat_main.dart';
 import 'package:group/screen/gallery_main.dart';
-import 'package:group/screen/home_main_page.dart';
+import 'package:group/screen/home_main.dart';
 import 'package:group/screen/my_main.dart';
-import 'package:group/screen/search_main.dart';
+import 'package:group/screen/favorite_main.dart';
 
 class BottomNavi extends StatefulWidget {
   const BottomNavi({Key? key}) : super(key: key);
@@ -33,65 +34,62 @@ class _BottomNaviState extends State<BottomNavi> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _widgetList.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF994B00),
-        unselectedItemColor: Colors.white,
-        selectedItemColor: Colors.white,
-        // selectedFontSize: 13,
-        // unselectedFontSize: 13,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/home_icon.png',
-              color: Colors.white,
-              width: 20,
-              height: 20,
-              filterQuality: FilterQuality.high,
-            ),
-            label: '홈',
-          ),
-          BottomNavigationBarItem(
-              icon: Image.asset(
-                'assets/images/search_icon.png',
-                color: Colors.white,
-                width: 25,
-                height: 25,
-                filterQuality: FilterQuality.high,
-              ),
-              label: '검색'),
-          BottomNavigationBarItem(
-              icon: Image.asset(
-                'assets/images/gallery_icon.png',
-                color: Colors.white,
-                width: 20,
-                height: 20,
-                filterQuality: FilterQuality.high,
-              ),
-              label: '게시판'),
-          BottomNavigationBarItem(
-              icon: Image.asset(
-                'assets/images/chat_icon.png',
-                color: Colors.white,
-                width: 20,
-                height: 20,
-                filterQuality: FilterQuality.high,
-              ),
-              label: '채팅'),
-          BottomNavigationBarItem(
-              icon: Image.asset(
-                'assets/images/myPage_icon.png',
-                color: Colors.white,
-                width: 20,
-                height: 20,
-                filterQuality: FilterQuality.high,
-              ),
-              label: '내 정보'),
-        ],
+      bottomNavigationBar: SizedBox(
+        height: 55,
+        child: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: const Color(0xFF994B00),
+          unselectedItemColor: Colors.white,
+          selectedItemColor: Colors.white,
+          // selectedFontSize: 13,
+          // unselectedFontSize: 13,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  "assets/images/ic_home.svg",
+                  color: Colors.white,
+                  width: 20,
+                  height: 20,
+                ),
+                label: "홈"),
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  "assets/images/ic_favorite.svg",
+                  color: Colors.white,
+                  width: 20,
+                  height: 20,
+                ),
+                label: '좋아요'),
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  "assets/images/ic_gallery.svg",
+                  color: Colors.white,
+                  width: 20,
+                  height: 20,
+                ),
+                label: '게시판'),
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  "assets/images/ic_chat.svg",
+                  color: Colors.white,
+                  width: 20,
+                  height: 20,
+                ),
+                label: '채팅'),
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  "assets/images/ic_myPage.svg",
+                  color: Colors.white,
+                  width: 20,
+                  height: 20,
+                ),
+                label: '내 정보'),
+          ],
+        ),
       ),
     );
   }

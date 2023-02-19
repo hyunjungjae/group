@@ -16,6 +16,26 @@ class Chat extends StatelessWidget {
         centerTitle: true,
         elevation: 0.0,
       ),
+      // body: Container(
+      //   child: StreamBuilder(
+      //     stream:
+      //         FirebaseFirestore.instance.collection("group_write").snapshots(),
+      //     builder: (context, snapshot) {
+      //       if (!snapshot.hasData) {
+      //         return const Center(
+      //           child: CircularProgressIndicator(),
+      //         );
+      //       } else {
+      //         return ListView.builder(
+      //           padding: EdgeInsets.all(10.0),
+      //           itemBuilder: (context, index) {
+      //             return
+      //           },
+      //         );
+      //       }
+      //     },
+      //   ),
+      // ),
     );
   }
 }

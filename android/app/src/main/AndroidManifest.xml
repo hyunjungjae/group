@@ -3,7 +3,7 @@
 
     <application
         android:name="${applicationName}"
-        android:icon="@mipmap/group"
+        android:icon="@mipmap/ic_group"
         android:label="group">        
 
         <activity

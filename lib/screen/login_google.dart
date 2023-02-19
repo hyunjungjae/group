@@ -41,7 +41,9 @@ class LoginGoogle extends StatelessWidget {
         children: [
           Center(
             child: OutlinedButton(
-              onPressed: signInWithGoogle,
+              onPressed: () {
+                signInWithGoogle();
+              },
               child: const Text("Google Login"),
             ),
           ),

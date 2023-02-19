@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class HomeCategory extends StatelessWidget {
-  const HomeCategory({super.key});
+class Alarm extends StatelessWidget {
+  const Alarm({super.key});
 
   PreferredSizeWidget _appbarWidget() {
     return AppBar(
       backgroundColor: const Color(0xFF994B00),
       title: const Text(
-        '필터',
+        '알림',
         style: TextStyle(
             color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
       ),
@@ -20,6 +20,7 @@ class HomeCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appbarWidget(),
+      body: Container(),
     );
   }
 }

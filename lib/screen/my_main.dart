@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:group/model/my_group_write.dart';
+import 'package:group/screen/my_group_write.dart';
 
 class My extends StatelessWidget {
   const My({Key? key}) : super(key: key);

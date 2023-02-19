@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:group/screen/home_detail_page.dart';
+import 'package:get/get.dart';
+import 'package:group/screen/home_detail.dart';
 
 class MyGroupWrite extends StatefulWidget {
   const MyGroupWrite({super.key});
@@ -72,26 +73,28 @@ class _MyGroupWriteState extends State<MyGroupWrite> {
                   height: 20,
                 ),
                 ElevatedButton(
-                    onPressed: () async {
-                      final String name = nameController.text;
-                      final String category = categoryController.text;
-                      final String area = areaController.text;
-                      final String introduce = introduceController.text;
-                      product.doc(documentSnapshot.id).update(
-                        {
-                          "name": name,
-                          "category": category,
-                          "area": area,
-                          "introduce": introduce,
-                        },
-                      );
-                      nameController.text = "";
-                      categoryController.text = "";
-                      areaController.text = "";
-                      introduceController.text = "";
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('update'))
+                  onPressed: () async {
+                    final String name = nameController.text;
+                    final String category = categoryController.text;
+                    final String area = areaController.text;
+                    final String introduce = introduceController.text;
+                    product.doc(documentSnapshot.id).update(
+                      {
+                        "name": name,
+                        "category": category,
+                        "area": area,
+                        "introduce": introduce,
+                      },
+                    );
+
+                    nameController.text = "";
+                    categoryController.text = "";
+                    areaController.text = "";
+                    introduceController.text = "";
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('update'),
+                ),
               ],
             ),
           ),
@@ -131,10 +134,10 @@ class _MyGroupWriteState extends State<MyGroupWrite> {
                         margin: const EdgeInsets.only(
                             left: 14, right: 14, bottom: 7, top: 7),
                         child: ListTile(
-                          leading: const Icon(
-                            Icons.logo_dev,
-                            size: 60,
-                          ),
+                          leading: SizedBox(
+                              height: 70,
+                              width: 70,
+                              child: Image.network(documentSnapshot['image'])),
                           title: Text(documentSnapshot['name']),
                           subtitle: Text(documentSnapshot['category']),
                           trailing: SizedBox(
@@ -157,12 +160,9 @@ class _MyGroupWriteState extends State<MyGroupWrite> {
                             ),
                           ),
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const DetailWritePage(),
-                              ),
-                            );
+                            Get.to(() => DetailWritePage(
+                                  documentSnapshot: documentSnapshot,
+                                ));
                           },
                         ),
                       ),

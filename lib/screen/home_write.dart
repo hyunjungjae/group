@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:get/get.dart';
-import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,26 +21,28 @@ class _WriteState extends State<Write> {
     setState(() {
       _image = File(image!.path);
     });
-  }
+    if (_image == null) return;
 
-  Future uploadImage(BuildContext context) async {
-    String fileName = basename(_image!.path);
-    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-    Reference ref = firebaseStorage.ref().child(fileName);
-    UploadTask uploadTask = ref.putFile(_image!);
-    TaskSnapshot taskSnapshot = await uploadTask;
-    if (mounted) {
-      setState(() {});
-    }
+    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirImages = referenceRoot.child('images');
+
+    Reference referenceImageToUpload = referenceDirImages.child(uniqueFileName);
+
+    try {
+      await referenceImageToUpload.putFile(File(_image!.path));
+      imageUrl = await referenceImageToUpload.getDownloadURL();
+    } catch (_) {}
   }
 
   FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController categoryController = TextEditingController();
-  final TextEditingController areaController = TextEditingController();
-  final TextEditingController introduceController = TextEditingController();
+  final nameController = TextEditingController();
+  final categoryController = TextEditingController();
+  final areaController = TextEditingController();
+  final introduceController = TextEditingController();
 
+  String imageUrl = "";
   String name = "";
   String category = "";
   String area = "";
@@ -73,8 +74,16 @@ class _WriteState extends State<Write> {
         actions: [
           IconButton(
               onPressed: () {
-                uploadImage(context);
+                if (imageUrl.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please upload an image'),
+                    ),
+                  );
+                  return;
+                }
                 fireStore.collection('group_write').doc().set({
+                  "image": imageUrl,
                   "name": name,
                   "category": category,
                   "area": area,
@@ -103,23 +112,23 @@ class _WriteState extends State<Write> {
                       children: [
                         Align(
                           alignment: Alignment.center,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(25),
-                            child: SizedBox.fromSize(
-                                size: const Size.fromRadius(100),
-                                child: (_image != null)
-                                    ? Image.file(_image!, fit: BoxFit.fill)
-                                    : null),
+                          child: Container(
+                            width: 150,
+                            height: 150,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade300,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(10))),
+                            child: (_image != null)
+                                ? Image.file(_image!)
+                                : IconButton(
+                                    onPressed: () {
+                                      getImage();
+                                    },
+                                    icon: const Icon(Icons.camera_alt),
+                                  ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 100.0),
-                          child: IconButton(
-                              onPressed: () {
-                                getImage();
-                              },
-                              icon: const Icon(Icons.camera_alt)),
-                        )
                       ],
                     ),
                   ],

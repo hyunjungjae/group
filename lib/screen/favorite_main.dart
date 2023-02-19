@@ -9,7 +9,7 @@ class Search extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF994B00),
         title: const Text(
-          '검색',
+          '좋아요',
           style: TextStyle(
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
         ),
